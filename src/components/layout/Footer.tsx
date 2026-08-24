@@ -49,10 +49,21 @@ export function Footer() {
               </ul>
             </nav>
           </div>
-          <p className="mt-9 border-t border-line pt-6 text-[12.5px] text-[#4a4d52]">
-            © {new Date().getFullYear()} {site.name} — Montagem Industrial · Tudo em Aço.
-            Todos os direitos reservados.
-          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6">
+            <p className="text-[12.5px] text-[#4a4d52]">
+              © {new Date().getFullYear()} {site.name} — Montagem Industrial · Tudo em Aço.
+              Todos os direitos reservados.
+            </p>
+            <a
+              href="https://www.instagram.com/luuiz.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[#4a4d52] transition-colors hover:text-brand-hi"
+            >
+              Desenvolvido por{' '}
+              <span className="text-brand/70 hover:text-brand-hi">@luuiz.dev</span>
+            </a>
+          </div>
         </div>
       </footer>
     </>
