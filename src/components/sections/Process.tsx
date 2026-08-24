@@ -14,14 +14,14 @@ export function Process() {
         />
       </Reveal>
       <Reveal>
-        <ol className="mt-16 grid grid-cols-1 md:grid-cols-4">
+        <ol className="mt-10 grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2 md:mt-16 md:grid-cols-4">
           {processSteps.map((s) => (
-            <li key={s.step} className="border-t-2 border-line py-[34px] pr-[30px]">
-              <span className="-mt-[17px] mb-5 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-brand-hi font-display text-[15px] text-black">
+            <li key={s.step} className="bg-ink px-[20px] py-[28px] md:border-t-2 md:border-line md:bg-transparent md:px-0 md:py-[34px] md:pr-[30px]">
+              <span className="mb-4 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-brand-hi font-display text-[15px] text-black md:-mt-[17px] md:mb-5">
                 {s.step}
               </span>
-              <h3 className="mb-2.5 font-cond text-xl uppercase text-paper">{s.title}</h3>
-              <p className="text-sm leading-relaxed text-steel">{s.description}</p>
+              <h3 className="mb-2 font-cond text-lg uppercase text-paper md:mb-2.5 md:text-xl">{s.title}</h3>
+              <p className="text-[13px] leading-relaxed text-steel md:text-sm">{s.description}</p>
             </li>
           ))}
         </ol>
