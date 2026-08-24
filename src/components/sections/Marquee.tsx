@@ -4,7 +4,7 @@ export function Marquee() {
   const items = [...services, ...services];
   return (
     <div className="overflow-hidden border-y border-line bg-ink py-5" aria-hidden="true">
-      <div className="flex w-max animate-[scroll_26s_linear_infinite] gap-[60px] whitespace-nowrap motion-reduce:anim-none">
+      <div className="flex w-max animate-scroll gap-[60px] whitespace-nowrap motion-reduce:animate-none">
         {items.map((s, i) => (
           <span
             key={`${s.id}-${i}`}
@@ -14,7 +14,6 @@ export function Marquee() {
           </span>
         ))}
       </div>
-      <style>{`@keyframes scroll{to{transform:translateX(-50%)}}`}</style>
     </div>
   );
 }

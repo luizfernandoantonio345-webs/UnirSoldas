@@ -28,14 +28,26 @@ export function Services() {
                 key={s.id}
                 className="group relative overflow-hidden bg-charcoal p-[42px_32px] transition-colors hover:bg-plate"
               >
+                {/* Left border reveal */}
                 <span
                   className="absolute left-0 top-0 h-full w-[3px] origin-top scale-y-0 bg-brand transition-transform duration-300 group-hover:scale-y-100"
                   aria-hidden="true"
                 />
-                <span className="absolute right-8 top-7 font-mono text-xs text-[#4a4d52]">
+                {/* Radial glow on hover */}
+                <span
+                  className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{ background: 'radial-gradient(ellipse 160px 140px at 32px 42px, rgba(226,104,29,0.07) 0%, transparent 70%)' }}
+                  aria-hidden="true"
+                />
+                {/* Card number */}
+                <span className="absolute right-8 top-7 font-mono text-xs text-[#4a4d52] transition-colors duration-300 group-hover:text-brand/40">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <Icon className="mb-[26px] h-[46px] w-[46px] text-brand-hi" strokeWidth={1.5} />
+                {/* Icon with glow on hover */}
+                <Icon
+                  className="mb-[26px] h-[46px] w-[46px] text-brand-hi transition-all duration-300 group-hover:text-brand-ember group-hover:[filter:drop-shadow(0_0_10px_rgba(255,182,115,0.5))]"
+                  strokeWidth={1.5}
+                />
                 <h3 className="mb-3 font-cond text-[22px] uppercase tracking-wide text-paper">
                   {s.title}
                 </h3>

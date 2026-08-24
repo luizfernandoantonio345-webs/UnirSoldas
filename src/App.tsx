@@ -8,6 +8,7 @@ import { Services } from '@/components/sections/Services';
 import { Process } from '@/components/sections/Process';
 import { Why } from '@/components/sections/Why';
 import { Gallery } from '@/components/sections/Gallery';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { CtaBand } from '@/components/sections/CtaBand';
 import { Contact } from '@/components/sections/Contact';
 
@@ -29,6 +30,7 @@ export default function App() {
         <Services />
         <Process />
         <Why />
+        <Testimonials />
         <Gallery />
         <CtaBand />
         <Contact />

@@ -1,21 +1,29 @@
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { EmberCanvas } from '@/components/ui/EmberCanvas';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { site, whatsappUrl } from '@/lib/site';
 
 const heroLines = ['Estrutura que', 'aguenta o peso', 'do seu projeto.'];
 
 export function Hero() {
+  const reduced = useReducedMotion();
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 600], ['0%', '18%']);
+
   return (
     <section
       id="top"
       className="relative flex min-h-screen items-center overflow-hidden pb-[70px] pt-[120px]"
     >
-      {/* fundo */}
-      <div
+      {/* fundo com parallax */}
+      <motion.div
         className="absolute inset-0 -z-20 bg-cover bg-[center_28%] brightness-[0.8] contrast-[1.08] grayscale-[30%]"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1745448797901-2a4c9d9af1c1?fm=jpg&q=72&w=2000&auto=format&fit=crop')",
+            "url('https://images.unsplash.com/photo-1745448797901-2a4c9d9af1c1?fm=webp&q=72&w=2000&auto=format&fit=crop')",
+          backgroundPositionY: reduced ? undefined : bgY,
         }}
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(95deg,rgba(8,9,10,0.98)_26%,rgba(8,9,10,0.7)_55%,rgba(8,9,10,0.25)_82%,rgba(8,9,10,0.55)_100%)]" />
@@ -56,6 +64,14 @@ export function Hero() {
             Ver trabalhos
           </Button>
         </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 z-[3] -translate-x-1/2 flex flex-col items-center gap-2 motion-safe:animate-bounce">
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-steel">
+          Scroll
+        </span>
+        <ChevronDown className="h-4 w-4 text-brand-hi" />
       </div>
     </section>
   );

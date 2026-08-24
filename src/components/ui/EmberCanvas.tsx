@@ -6,9 +6,13 @@ interface Particle {
   r: number; life: number; max: number; hue: number;
 }
 
+const TARGET_FPS = 30;
+const FRAME_MS = 1000 / TARGET_FPS;
+
 /**
  * Elemento de assinatura: partículas de brasa subindo, evocando a solda.
  * Renderiza nada quando o usuário prefere menos movimento.
+ * FPS limitado a 30 e animação pausada quando fora do viewport.
  */
 export function EmberCanvas({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,7 +25,7 @@ export function EmberCanvas({ className }: { className?: string }) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let W = 0, H = 0, raf = 0;
+    let W = 0, H = 0, raf = 0, lastTime = 0, animating = false;
     const parts: Particle[] = [];
 
     const resize = () => {
@@ -48,7 +52,11 @@ export function EmberCanvas({ className }: { className?: string }) {
       parts.push(p);
     }
 
-    const loop = () => {
+    const loop = (timestamp: number) => {
+      raf = requestAnimationFrame(loop);
+      if (timestamp - lastTime < FRAME_MS) return;
+      lastTime = timestamp;
+
       ctx.clearRect(0, 0, W, H);
       for (const p of parts) {
         p.x += p.vx; p.y += p.vy; p.vy -= 0.002; p.life += 1;
@@ -62,13 +70,27 @@ export function EmberCanvas({ className }: { className?: string }) {
         if (p.life >= p.max || p.y < -10) Object.assign(p, spawn());
       }
       ctx.shadowBlur = 0;
-      raf = requestAnimationFrame(loop);
     };
-    loop();
+
+    // Pause animation when canvas leaves viewport
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animating) {
+          animating = true;
+          raf = requestAnimationFrame(loop);
+        } else if (!entry.isIntersecting && animating) {
+          animating = false;
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.01 },
+    );
+    io.observe(canvas);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
+      io.disconnect();
     };
   }, [reduced]);
 
